@@ -7,11 +7,11 @@ namespace RawMaterials.Models.Entities
 {
     public class Province
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public Country Country { get; set; }
 
-        public int CountryId { get; set; }
+        public long CountryId { get; set; }
 
         public List<City> Cities { get; set; }
 

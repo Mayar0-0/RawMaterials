@@ -40,8 +40,8 @@ namespace RawMaterials.Data
         {
        
             // Make these entities TPT inheritance hierarchy 
-            modelBuilder.Entity<Suplier>().ToTable("Suplier");
-            modelBuilder.Entity<Importer>().ToTable("Importer");
+          //  modelBuilder.Entity<Suplier>().ToTable("Suplier");
+           // modelBuilder.Entity<Importer>().ToTable("Importer");
 
 
             modelBuilder.Entity<Advertizment>()

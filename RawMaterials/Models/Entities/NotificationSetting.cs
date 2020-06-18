@@ -7,8 +7,8 @@ namespace RawMaterials.Models.Entities
 {
     public class NotificationSetting
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
 
         public User User { get; set; }
 

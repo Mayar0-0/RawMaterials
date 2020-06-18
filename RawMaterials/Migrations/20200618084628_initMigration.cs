@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RawMaterials.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,7 +25,7 @@ namespace RawMaterials.Migrations
                 name: "Countrys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true)
                 },
@@ -38,7 +38,7 @@ namespace RawMaterials.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -86,9 +86,9 @@ namespace RawMaterials.Migrations
                 name: "Province",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<int>(nullable: false),
+                    CountryId = table.Column<long>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -108,8 +108,8 @@ namespace RawMaterials.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    SuplierId = table.Column<int>(nullable: false),
-                    ImporterId = table.Column<int>(nullable: false),
+                    SuplierId = table.Column<long>(nullable: false),
+                    ImporterId = table.Column<long>(nullable: false),
                     Rate = table.Column<int>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
@@ -137,7 +137,7 @@ namespace RawMaterials.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryId = table.Column<long>(nullable: false),
-                    ImporterId = table.Column<int>(nullable: false)
+                    ImporterId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,7 +162,7 @@ namespace RawMaterials.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<long>(nullable: false),
                     Type = table.Column<string>(nullable: true),
                     notification_text = table.Column<string>(nullable: true),
                     Read_at = table.Column<DateTime>(nullable: false)
@@ -182,9 +182,9 @@ namespace RawMaterials.Migrations
                 name: "NotificationSettings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<long>(nullable: false),
                     BestDealPeriod = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
@@ -204,7 +204,7 @@ namespace RawMaterials.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<long>(nullable: false),
                     Paymnet_Type = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Payment_Date = table.Column<DateTime>(nullable: false),
@@ -229,7 +229,7 @@ namespace RawMaterials.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryId = table.Column<long>(nullable: false),
-                    SuplierId = table.Column<int>(nullable: false)
+                    SuplierId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -273,10 +273,10 @@ namespace RawMaterials.Migrations
                 name: "Citys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    ProvinceId = table.Column<int>(nullable: false)
+                    ProvinceId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,7 +286,7 @@ namespace RawMaterials.Migrations
                         column: x => x.ProvinceId,
                         principalTable: "Province",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,7 +295,7 @@ namespace RawMaterials.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TeamWorkId = table.Column<int>(nullable: false),
+                    TeamWorkId = table.Column<long>(nullable: false),
                     PaymentInfoId = table.Column<long>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
@@ -346,8 +346,8 @@ namespace RawMaterials.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     MaterialId = table.Column<long>(nullable: false),
-                    SuplierId = table.Column<int>(nullable: false),
-                    CityId = table.Column<int>(nullable: false),
+                    SuplierId = table.Column<long>(nullable: false),
+                    CityId = table.Column<long>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     Quantitiy = table.Column<long>(nullable: false)
                 },
@@ -380,7 +380,7 @@ namespace RawMaterials.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ImporterId = table.Column<int>(nullable: false),
+                    ImporterId = table.Column<long>(nullable: false),
                     SuplierMaterialId = table.Column<long>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
@@ -410,7 +410,7 @@ namespace RawMaterials.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     SuplierMterialId = table.Column<long>(nullable: false),
-                    ImporterId = table.Column<int>(nullable: false)
+                    ImporterId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {

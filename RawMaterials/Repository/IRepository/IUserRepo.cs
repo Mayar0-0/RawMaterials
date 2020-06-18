@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RawMaterials.Models.IRepository
 {
-    public interface  IUserRepo :IGenericRepo<User>
+    public interface IUserRepo : IGenericRepo<User>
     {
         bool IsUniquser(string name);
         User Authentication(string name, string pass);

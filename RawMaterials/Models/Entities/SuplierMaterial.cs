@@ -15,11 +15,11 @@ namespace RawMaterials.Models.Entities
 
         public Suplier Suplier { get; set; }
 
-        public int SuplierId { get; set; }
+        public long SuplierId { get; set; }
 
         public City City { get; set; }
 
-        public int CityId { get; set; }
+        public long CityId { get; set; }
 
         public double Price { get; set; }
 

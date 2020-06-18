@@ -11,7 +11,7 @@ namespace RawMaterials.Models.Entities
 
         public TeamWork TeamWork { get; set; }
 
-        public int TeamWorkId { get; set; }
+        public long TeamWorkId { get; set; }
 
         public PaymentInfo PaymentInfo { get; set; }
 

@@ -9,8 +9,8 @@ using RawMaterials.Data;
 namespace RawMaterials.Migrations
 {
     [DbContext(typeof(RawMaterialsContext))]
-    [Migration("20200615163116_Initial")]
-    partial class Initial
+    [Migration("20200618084628_initMigration")]
+    partial class initMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,8 +40,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("PaymentInfoId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("TeamWorkId")
-                        .HasColumnType("int");
+                    b.Property<long>("TeamWorkId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -69,15 +69,15 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.City", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("ProvinceId")
-                        .HasColumnType("int");
+                    b.Property<long?>("ProvinceId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -88,9 +88,9 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.Country", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -109,8 +109,8 @@ namespace RawMaterials.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ImporterId")
-                        .HasColumnType("int");
+                    b.Property<long>("ImporterId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Notes")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -136,8 +136,8 @@ namespace RawMaterials.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<int>("ImporterId")
-                        .HasColumnType("int");
+                    b.Property<long>("ImporterId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Notes")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -145,8 +145,8 @@ namespace RawMaterials.Migrations
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<int>("SuplierId")
-                        .HasColumnType("int");
+                    b.Property<long>("SuplierId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -185,8 +185,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("ImporterId")
-                        .HasColumnType("int");
+                    b.Property<long>("ImporterId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -203,8 +203,8 @@ namespace RawMaterials.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<int>("ImporterId")
-                        .HasColumnType("int");
+                    b.Property<long>("ImporterId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("SuplierMterialId")
                         .HasColumnType("bigint");
@@ -252,8 +252,8 @@ namespace RawMaterials.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("notification_text")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -267,15 +267,15 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.NotificationSetting", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<float>("BestDealPeriod")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -306,8 +306,8 @@ namespace RawMaterials.Migrations
                     b.Property<string>("Paymnet_Type")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -340,12 +340,12 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.Province", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("CountryId")
-                        .HasColumnType("int");
+                    b.Property<long>("CountryId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -385,8 +385,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("SuplierId")
-                        .HasColumnType("int");
+                    b.Property<long>("SuplierId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -403,8 +403,8 @@ namespace RawMaterials.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
+                    b.Property<long>("CityId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("MaterialId")
                         .HasColumnType("bigint");
@@ -415,8 +415,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("Quantitiy")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("SuplierId")
-                        .HasColumnType("int");
+                    b.Property<long>("SuplierId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -431,9 +431,9 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Active")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -530,11 +530,9 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.City", b =>
                 {
-                    b.HasOne("RawMaterials.Models.Entities.Province", "Province")
+                    b.HasOne("RawMaterials.Models.Entities.Province", null)
                         .WithMany("Cities")
-                        .HasForeignKey("ProvinceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProvinceId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.EndedDeal", b =>

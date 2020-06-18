@@ -20,36 +20,26 @@ namespace RawMaterials.Controllers
     {
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-        private RawMaterialsContext _context;
+       
+        
         public UserController(IUserRepo userRepo, IMapper mapper)
         {
             _userRepo = userRepo;
-            _mapper = mapper;
-       
+            _mapper = mapper;                              
         }
-
-
 
         // GET: api/<UserController>
         [HttpGet("{id}")]
         //  [Authorize]
         public async Task<IActionResult> Get(long id)
         {
-            var user = _userRepo.GetById(id);
+            var user = await _userRepo.GetById(id);            
             if (user == null) { return NotFound(); }
             else {
-                var userMap = _mapper.Map<UserReadDto>(user.Result);
-                return Ok(user.Result);  
+                var userMap = _mapper.Map<UserReadDto>(user);
+                return Ok(user);  
                  }
         }
-
-        // GET api/<UserController>/5
-     //   [HttpGet("{id}")]
-    /*    public UserReadDto Get(int id)
-        {
-
-            return "value";
-        }*/
 
         // POST api/<UserController>
         [HttpPost]
@@ -68,10 +58,9 @@ namespace RawMaterials.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public async void Delete(int id)
-        {
-            
-          //  return await Ok(_userRepo.Remove());
+        public async void Delete()
+        {            
+           //return await Ok(_userRepo.Remove());
         }
     }
 }

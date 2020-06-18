@@ -12,7 +12,7 @@ namespace RawMaterials.Models.Entities
 
         public Importer Importer { get; set; }
 
-        public int ImporterId { get; set; }
+        public long ImporterId { get; set; }
 
         public SuplierMaterial SuplierMaterial { get; set; }
 

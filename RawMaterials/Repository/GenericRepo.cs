@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RawMaterials.Data;
-using RawMaterials.Models.Entities;
+
 using RawMaterials.Models.IRepository;
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace RawMaterials.Repository
         }
 
         public Task Remove(T entity)
-        {
+        {            
             Context.Set<T>().Remove(entity);
             return Context.SaveChangesAsync();
         }

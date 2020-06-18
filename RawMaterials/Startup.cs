@@ -32,10 +32,11 @@ namespace RawMaterials
         {
             services.AddDbContextPool<RawMaterialsContext>(
                  options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")
+                 
             ));
-            services.AddAutoMapper(typeof(AutoMapping));
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
-            services.AddScoped<IUserRepo, UserRepo>();
+             services.AddScoped<IUserRepo, UserRepo>();
 
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling =
@@ -43,15 +44,17 @@ namespace RawMaterials
 
             // Swgger config Url"https://localhost:44369/swagger/Raw_Materials/swagger.json"
             services.AddSwaggerGen(options => {
-                options.SwaggerDoc("Raw_Materials",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Raw Materials APi",
-                        Version = "1"
-                    }
-                        );
-            });
+                            options.SwaggerDoc("Raw_Materials",
+                                new Microsoft.OpenApi.Models.OpenApiInfo()
+                                {
+                                    Title = "Raw Materials APi",
+                                    Version = "1",
 
+                                }
+                                    );
+                        });
+      /*      services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = Jwtbearerdefaults});*/
             services.AddControllersWithViews();
         }
 
@@ -69,7 +72,7 @@ namespace RawMaterials
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseSwagger();
+               app.UseSwagger();
             app.UseSwaggerUI(Options => {
                 Options.SwaggerEndpoint("/swagger/Raw_Materials/swagger.json", "Raw Material");
                 Options.RoutePrefix = "";
@@ -79,6 +82,7 @@ namespace RawMaterials
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
 
             app.UseEndpoints(endpoints =>

@@ -12,8 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200615163116_Initial.cs" />
+    <Compile Remove="Migrations\20200615163116_Initial.Designer.cs" />
     <Compile Remove="Migrations\20200616094121_change_users_to_TPT.cs" />
     <Compile Remove="Migrations\20200616094121_change_users_to_TPT.Designer.cs" />
+    <Compile Remove="Migrations\20200618084228_initMigration.cs" />
+    <Compile Remove="Migrations\20200618084228_initMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
