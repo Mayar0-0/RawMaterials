@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 using RawMaterials.Models.Entities;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RawMaterials.Data
 {
-    public class RawMaterialsContext : DbContext
+    public class RawMaterialsContext : IdentityDbContext<User>
     {
 
         public DbSet<Advertizment> Advertizments { get; set; }
@@ -30,7 +31,6 @@ namespace RawMaterials.Data
         public DbSet<SuplierCategory> SuplierCategory { get; set; }
         public DbSet<SuplierMaterial> SuplierMaterial { get; set; }
         public DbSet<TeamWork> TeamWork { get; set; }
-        public DbSet<User> Users { get; set; }
 
 
 
@@ -38,10 +38,7 @@ namespace RawMaterials.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-       
-            // Make these entities TPT inheritance hierarchy 
-          //  modelBuilder.Entity<Suplier>().ToTable("Suplier");
-           // modelBuilder.Entity<Importer>().ToTable("Importer");
+            base.OnModelCreating(modelBuilder);
 
 
             modelBuilder.Entity<Advertizment>()

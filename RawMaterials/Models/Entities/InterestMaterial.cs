@@ -15,6 +15,6 @@ namespace RawMaterials.Models.Entities
 
         public Importer Importer { get; set; }
 
-        public long ImporterId { get; set; }
+        public string ImporterId { get; set; }
     }
 }

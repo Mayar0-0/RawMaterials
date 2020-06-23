@@ -15,6 +15,6 @@ namespace RawMaterials.Models.Entities
 
         public Suplier Suplier { get; set; }
 
-        public long SuplierId { get; set; }
+        public string SuplierId { get; set; }
     }
 }

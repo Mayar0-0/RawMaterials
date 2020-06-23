@@ -6,12 +6,15 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RawMaterials.Data;
 using RawMaterials.Dto;
+using RawMaterials.Models.Entities;
 using RawMaterials.Models.IRepository;
 using RawMaterials.Models.Repository;
 using RawMaterials.Repository;
@@ -32,8 +35,25 @@ namespace RawMaterials
         {
             services.AddDbContextPool<RawMaterialsContext>(
                  options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")
-                 
             ));
+
+            services.AddIdentity<User, IdentityRole>(opts =>
+            {
+                opts.Password.RequiredLength = 8;
+                opts.Password.RequireNonAlphanumeric = true;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = true;
+                opts.Password.RequireDigit = true;
+            }).AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(options => {
+
+                options.LoginPath = "/Account/Login";
+                options.Cookie.Name = "RawMaterials";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+            });
+
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
              services.AddScoped<IUserRepo, UserRepo>();
@@ -77,19 +97,20 @@ namespace RawMaterials
                 Options.SwaggerEndpoint("/swagger/Raw_Materials/swagger.json", "Raw Material");
                 Options.RoutePrefix = "";
             });
+
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
-            app.UseAuthentication();
 
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Admin}/{action=Index}/{id?}");
             });
         }
     }

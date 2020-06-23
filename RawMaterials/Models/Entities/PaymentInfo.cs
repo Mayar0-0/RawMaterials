@@ -11,7 +11,7 @@ namespace RawMaterials.Models.Entities
 
         public User User { get; set; }
 
-        public long UserId { get; set; }
+        public string UserId { get; set; }
 
         public string Paymnet_Type { get; set; }
 

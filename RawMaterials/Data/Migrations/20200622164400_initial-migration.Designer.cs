@@ -2,20 +2,150 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RawMaterials.Data;
 
-namespace RawMaterials.Migrations
+namespace RawMaterials.Data.Migrations
 {
     [DbContext(typeof(RawMaterialsContext))]
-    partial class RawMaterialsContextModelSnapshot : ModelSnapshot
+    [Migration("20200622164400_initial-migration")]
+    partial class initialmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.4")
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.Advertizment", b =>
                 {
@@ -38,8 +168,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("PaymentInfoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("TeamWorkId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("TeamWorkId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -74,7 +204,7 @@ namespace RawMaterials.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<long?>("ProvinceId")
+                    b.Property<long>("ProvinceId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
@@ -107,8 +237,8 @@ namespace RawMaterials.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<long>("ImporterId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ImporterId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Notes")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -134,8 +264,8 @@ namespace RawMaterials.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ImporterId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ImporterId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Notes")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -143,8 +273,8 @@ namespace RawMaterials.Migrations
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<long>("SuplierId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("SuplierId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -183,8 +313,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ImporterId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ImporterId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -201,8 +331,8 @@ namespace RawMaterials.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ImporterId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ImporterId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<long>("SuplierMterialId")
                         .HasColumnType("bigint");
@@ -250,8 +380,8 @@ namespace RawMaterials.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("notification_text")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -272,8 +402,8 @@ namespace RawMaterials.Migrations
                     b.Property<float>("BestDealPeriod")
                         .HasColumnType("float");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -304,8 +434,8 @@ namespace RawMaterials.Migrations
                     b.Property<string>("Paymnet_Type")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -383,8 +513,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("CategoryId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("SuplierId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("SuplierId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -413,8 +543,8 @@ namespace RawMaterials.Migrations
                     b.Property<long>("Quantitiy")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("SuplierId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("SuplierId")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
@@ -429,9 +559,11 @@ namespace RawMaterials.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.User", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Active")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -442,12 +574,20 @@ namespace RawMaterials.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -458,18 +598,58 @@ namespace RawMaterials.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Nationality")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<string>("Phone")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
@@ -511,6 +691,57 @@ namespace RawMaterials.Migrations
                     b.HasDiscriminator().HasValue("TeamWork");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("RawMaterials.Models.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("RawMaterials.Models.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RawMaterials.Models.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("RawMaterials.Models.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("RawMaterials.Models.Entities.Advertizment", b =>
                 {
                     b.HasOne("RawMaterials.Models.Entities.PaymentInfo", "PaymentInfo")
@@ -521,25 +752,23 @@ namespace RawMaterials.Migrations
 
                     b.HasOne("RawMaterials.Models.Entities.TeamWork", "TeamWork")
                         .WithMany("Advertizments")
-                        .HasForeignKey("TeamWorkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeamWorkId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.City", b =>
                 {
-                    b.HasOne("RawMaterials.Models.Entities.Province", null)
+                    b.HasOne("RawMaterials.Models.Entities.Province", "Province")
                         .WithMany("Cities")
-                        .HasForeignKey("ProvinceId");
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.EndedDeal", b =>
                 {
                     b.HasOne("RawMaterials.Models.Entities.Importer", "Importer")
                         .WithMany("EndedDeals")
-                        .HasForeignKey("ImporterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImporterId");
 
                     b.HasOne("RawMaterials.Models.Entities.SuplierMaterial", "SuplierMaterial")
                         .WithMany("EndedDeals")
@@ -552,15 +781,11 @@ namespace RawMaterials.Migrations
                 {
                     b.HasOne("RawMaterials.Models.Entities.Importer", "Importer")
                         .WithMany("FeedBacks")
-                        .HasForeignKey("ImporterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImporterId");
 
                     b.HasOne("RawMaterials.Models.Entities.Suplier", "Suplier")
                         .WithMany("FeedBacks")
-                        .HasForeignKey("SuplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuplierId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.GlobalPrice", b =>
@@ -582,18 +807,14 @@ namespace RawMaterials.Migrations
 
                     b.HasOne("RawMaterials.Models.Entities.Importer", "Importer")
                         .WithMany("ImporterCategories")
-                        .HasForeignKey("ImporterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImporterId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.InterestMaterial", b =>
                 {
                     b.HasOne("RawMaterials.Models.Entities.Importer", "Importer")
                         .WithMany("InterestMaterials")
-                        .HasForeignKey("ImporterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImporterId");
 
                     b.HasOne("RawMaterials.Models.Entities.SuplierMaterial", "SuplierMterial")
                         .WithMany()
@@ -615,27 +836,21 @@ namespace RawMaterials.Migrations
                 {
                     b.HasOne("RawMaterials.Models.Entities.User", "User")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.NotificationSetting", b =>
                 {
                     b.HasOne("RawMaterials.Models.Entities.User", "User")
                         .WithOne("NotificationSetting")
-                        .HasForeignKey("RawMaterials.Models.Entities.NotificationSetting", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RawMaterials.Models.Entities.NotificationSetting", "UserId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.PaymentInfo", b =>
                 {
                     b.HasOne("RawMaterials.Models.Entities.User", "User")
                         .WithMany("PaymentInfos")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.PriceLog", b =>
@@ -675,9 +890,7 @@ namespace RawMaterials.Migrations
 
                     b.HasOne("RawMaterials.Models.Entities.Suplier", "Suplier")
                         .WithMany("SuplierCategories")
-                        .HasForeignKey("SuplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuplierId");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.SuplierMaterial", b =>
@@ -696,9 +909,7 @@ namespace RawMaterials.Migrations
 
                     b.HasOne("RawMaterials.Models.Entities.Suplier", "Suplier")
                         .WithMany("SuplierMaterials")
-                        .HasForeignKey("SuplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SuplierId");
                 });
 #pragma warning restore 612, 618
         }

@@ -57,10 +57,10 @@ namespace RawMaterials.Controllers
         }
 
         // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public async void Delete()
-        {            
-           //return await Ok(_userRepo.Remove());
-        }
+        //[HttpDelete("{id}")]
+        //public async void Delete()
+        //{            
+        //   //return await Ok(_userRepo.Remove());
+        //}
     }
 }
