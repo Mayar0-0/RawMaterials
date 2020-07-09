@@ -12,9 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20200709162938_unique-email.cs" />
+    <Compile Remove="Data\Migrations\20200709162938_unique-email.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Models\Dto\AutoMapping .cs" />
     <Compile Include="Models\Dto\User\GeneralUserDto.cs" />
     <Compile Include="Models\Dto\User\ImporterDto.cs" />
+    <Compile Include="Models\Dto\User\LoginDto.cs" />
     <Compile Include="Models\Dto\User\SuplierDto.cs" />
     <Compile Include="Models\Dto\User\TeamWorkDto.cs" />
   </ItemGroup>

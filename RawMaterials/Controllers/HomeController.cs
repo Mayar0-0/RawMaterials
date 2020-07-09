@@ -7,12 +7,15 @@ using System.Threading.Tasks;
   
 namespace RawMaterials.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class HomeController : Controller
     {
         [Authorize]
+        [HttpGet("")]
         public IActionResult Index()
         {
-            return View((object)"Hello");
+            return Ok("you are authorized");
         }
     }
 }

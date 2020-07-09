@@ -4,7 +4,7 @@ using RawMaterials.ExceptionsManagement;
 using RawMaterials.Models.Dto.User;
 using RawMaterials.Models.IO.RequestModels.User;
 using RawMaterials.Models.IO.ResponseModels.User;
-using RawMaterials.Service.IService;
+using RawMaterials.Service.IService.UserServices;
 using RawMaterials.Shared.Enumerations;
 using System.Threading.Tasks;
 
@@ -16,13 +16,15 @@ namespace RawMaterials.Controllers
     {
         private readonly IMapper _mapper;
         private IUserRegistrationService _userRegistrationService;
+        private ILoginService _loginService;
 
         static readonly string importerRole = SystemRoles.IMPORTER.ToString();
 
-        public UserController(IMapper mapper, IUserRegistrationService userRegistrationService)
+        public UserController(IMapper mapper, IUserRegistrationService userRegistrationService, ILoginService loginService)
         {
             _mapper = mapper;
             _userRegistrationService = userRegistrationService;
+            _loginService = loginService;
         }
 
         [HttpPost("")]
@@ -48,6 +50,20 @@ namespace RawMaterials.Controllers
                     return Ok(_mapper.Map<TeamWorkRegistrationResponse>(await _userRegistrationService.registerTeamWork(teamWorkDto)));
             }
             return BadRequest(new { message = "user role should be [ Importer, Suplier, TeamWork ]" });
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromForm]LoginRequestModel loginRequestModel)
+        {
+            var loginDto = _mapper.Map<LoginDto>(loginRequestModel);
+            var loginResponseModel = await  _loginService.Login(loginDto);
+
+
+            if (loginResponseModel.Succeed)
+                return Ok(loginResponseModel);
+            else
+                return BadRequest(loginResponseModel);
+
         }
 
 

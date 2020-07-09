@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using RawMaterials.ExceptionsManagement;
 using RawMaterials.Models.Dto.User;
 using RawMaterials.Models.Entities;
-using RawMaterials.Service.IService;
+using RawMaterials.Service.IService.UserServices;
 using RawMaterials.Shared.Enumerations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RawMaterials.Service
+namespace RawMaterials.Service.UserServices
 {
     public class UserRegistrationService : IUserRegistrationService
     {
@@ -34,7 +34,7 @@ namespace RawMaterials.Service
         {
             var ImporterEntity = _mapper.Map<Importer>(importerDto);
 
-            await CheckNameDublication(importerDto.UserName);
+            await CheckNameAndEmailDublication(importerDto.UserName, importerDto.Password);
 
             IdentityResult result = await _importerManager.CreateAsync(ImporterEntity, importerDto.Password);
             if (!result.Succeeded)
@@ -55,7 +55,7 @@ namespace RawMaterials.Service
         {
             var SuplierEntity = _mapper.Map<Suplier>(suplierDto);
 
-            await CheckNameDublication(suplierDto.UserName);
+            await CheckNameAndEmailDublication(suplierDto.UserName, suplierDto.Email);
 
 
             IdentityResult result = await _suplierManager.CreateAsync(SuplierEntity, suplierDto.Password);
@@ -71,28 +71,31 @@ namespace RawMaterials.Service
             return _mapper.Map<SuplierDto>(suplierResult);
         }
 
-        public async Task<TeamWorkDto> registerTeamWork(TeamWorkDto tramWorkDto)
+        public async Task<TeamWorkDto> registerTeamWork(TeamWorkDto teamWorkDto)
         {
-            var TeamWorkerEntity = _mapper.Map<TeamWork>(tramWorkDto);
+            var TeamWorkerEntity = _mapper.Map<TeamWork>(teamWorkDto);
 
-            await CheckNameDublication(tramWorkDto.UserName);
+            await CheckNameAndEmailDublication(teamWorkDto.UserName, teamWorkDto.Email);
 
 
-            IdentityResult result = await _teamWorkManager.CreateAsync(TeamWorkerEntity, tramWorkDto.Password);
+            IdentityResult result = await _teamWorkManager.CreateAsync(TeamWorkerEntity, teamWorkDto.Password);
             if (!result.Succeeded)
                 throw new UserRegistrationException(string.Join(", \n", result.Errors.Select(err => err.Description)));
 
             await _teamWorkManager.AddToRoleAsync(TeamWorkerEntity, SystemRoles.TEAMWORK.ToString());
 
-            var teamWorkResult = await _teamWorkManager.FindByNameAsync(tramWorkDto.UserName);
+            var teamWorkResult = await _teamWorkManager.FindByNameAsync(teamWorkDto.UserName);
 
             return _mapper.Map<TeamWorkDto>(teamWorkResult);
         }
 
-        private async Task CheckNameDublication(string UserName)
+        private async Task CheckNameAndEmailDublication(string UserName, string Email)
         {
             if (await _userManager.FindByNameAsync(UserName) != null)
                 throw new UserRegistrationException($"User name '{UserName}' is already taken.");
+
+            if (await _userManager.FindByEmailAsync(Email) != null)
+                throw new UserRegistrationException($"Email '{Email}' is already exists in the system.");
         }
 
     }

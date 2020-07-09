@@ -1,8 +1,12 @@
 using System;
+using System.Net;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +17,8 @@ using RawMaterials.Initializers.DataInitializers;
 using RawMaterials.Models.Entities;
 using RawMaterials.Models.IRepository;
 using RawMaterials.Repository;
-using RawMaterials.Service;
-using RawMaterials.Service.IService;
+using RawMaterials.Service.IService.UserServices;
+using RawMaterials.Service.UserServices;
 
 namespace RawMaterials
 {
@@ -41,6 +45,8 @@ namespace RawMaterials
                 opts.Password.RequireLowercase = false;
                 opts.Password.RequireUppercase = true;
                 opts.Password.RequireDigit = true;
+                opts.User.RequireUniqueEmail = true;
+
             }).AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
 
             services.AddIdentityCore<Importer>()
@@ -57,10 +63,28 @@ namespace RawMaterials
 
             services.ConfigureApplicationCookie(options => {
 
-                options.LoginPath = "/Account/Login";
+                // fixing refirection 404 of loginPath
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = ctx => {
+                        if (ctx.Request.Path.StartsWithSegments("/api"))
+                        {
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                        return Task.FromResult(0);
+                    }
+                };
+
                 options.Cookie.Name = "RawMaterials";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                //options.Cookie.ApplicationCookie = 
             });
+
+
 
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -68,6 +92,7 @@ namespace RawMaterials
 
             // Business services injection
             services.AddScoped(typeof(IUserRegistrationService), typeof(UserRegistrationService));
+            services.AddScoped(typeof(ILoginService), typeof(LoginService));
 
 
             // app initializers
