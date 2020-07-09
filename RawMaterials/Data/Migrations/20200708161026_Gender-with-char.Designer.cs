@@ -9,8 +9,8 @@ using RawMaterials.Data;
 namespace RawMaterials.Data.Migrations
 {
     [DbContext(typeof(RawMaterialsContext))]
-    [Migration("20200622164400_initial-migration")]
-    partial class initialmigration
+    [Migration("20200708161026_Gender-with-char")]
+    partial class Genderwithchar
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -565,8 +565,8 @@ namespace RawMaterials.Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Active")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Address")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -590,12 +590,15 @@ namespace RawMaterials.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("varchar(1) CHARACTER SET utf8mb4");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("LockoutEnabled")
@@ -603,9 +606,6 @@ namespace RawMaterials.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Nationality")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -619,9 +619,6 @@ namespace RawMaterials.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Phone")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("PhoneNumber")
@@ -669,6 +666,7 @@ namespace RawMaterials.Data.Migrations
                     b.HasBaseType("RawMaterials.Models.Entities.User");
 
                     b.Property<string>("CommericialRecord")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<bool>("PremiumAccount")

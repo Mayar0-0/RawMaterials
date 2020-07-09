@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RawMaterials.Models.DTO
+namespace RawMaterials.Shared.Enumerations
 {
-    public class UserReadDto
-
+    public enum Gender
     {
-       public string Name { get; set; }
-
+        MALE,
+        FEMALE
     }
 }

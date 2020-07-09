@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace RawMaterials.Models.Entities
 
         public float Rank { get; set; }
 
+        [Required]
         public string CommericialRecord { get; set; }
 
         public List<SuplierCategory> SuplierCategories { get; set; }

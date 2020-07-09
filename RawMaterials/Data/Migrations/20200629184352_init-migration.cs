@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RawMaterials.Data.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class initmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,13 +41,11 @@ namespace RawMaterials.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Active = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
                     Gender = table.Column<bool>(nullable: false),
                     Nationality = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),

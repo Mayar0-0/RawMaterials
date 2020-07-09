@@ -1,11 +1,10 @@
 ﻿
 using AutoMapper;
-using RawMaterials.Models.DTO;
+using RawMaterials.Models.Dto.User;
 using RawMaterials.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RawMaterials.Models.IO.RequestModels.User;
+using RawMaterials.Models.IO.ResponseModels.User;
+using RawMaterials.Shared.Enumerations;
 
 namespace RawMaterials.Dto
 {
@@ -14,12 +13,33 @@ namespace RawMaterials.Dto
 
         public AutoMapping()
         {
-            CreateMap<User, UserReadDto>();
-            CreateMap<UserReadDto, User>();
-         
-            
+
+            CreateMap<UserRegistrationGeneralRequest, ImporterDto>();
+            CreateMap<UserRegistrationGeneralRequest, SuplierDto>();
+            CreateMap<UserRegistrationGeneralRequest, TeamWorkDto>();
+
+            CreateMap<GeneralUserDto, User>().ForMember(userModel => userModel.Gender, UserDto => UserDto.MapFrom(userDto => userDto.
+            Gender.ToString()[0]));
+
+            CreateMap<User, GeneralUserDto>().ForMember(userDto => userDto.Gender, userModel => userModel.MapFrom(userModel =>
+            userModel.Gender.Equals('M') ? Gender.MALE : Gender.FEMALE
+            ));
+
+            CreateMap<ImporterDto, Importer>().IncludeBase<GeneralUserDto, User>().ReverseMap();
+            CreateMap<SuplierDto, Suplier>().IncludeBase<GeneralUserDto, User>().ReverseMap();
+            CreateMap<TeamWorkDto, TeamWork>().IncludeBase<GeneralUserDto, User>().ReverseMap();
+
+
+
+            CreateMap<GeneralUserDto, UserRegistrationGeneralResponse>()
+                .ForMember(userRes => userRes.Gender, userDto => userDto.MapFrom(userDto => userDto.Gender == Gender.MALE ? "MALE" : "FEMALE"));
+
+            CreateMap<ImporterDto, ImporterRegistrationResponse>().IncludeBase<GeneralUserDto, UserRegistrationGeneralResponse>();
+            CreateMap<SuplierDto, SuplierRegistrationResponse>().IncludeBase<GeneralUserDto, UserRegistrationGeneralResponse>();
+            CreateMap<TeamWorkDto, TeamWorkRegistrationResponse>().IncludeBase<GeneralUserDto, UserRegistrationGeneralResponse>();
+
         }
-     
+
 
     }
 }

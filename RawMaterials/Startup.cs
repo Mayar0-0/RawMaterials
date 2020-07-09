@@ -1,23 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RawMaterials.Data;
-using RawMaterials.Dto;
+using RawMaterials.ExceptionsManagement.ExceptionHandlers;
+using RawMaterials.Initializers.DataInitializers;
 using RawMaterials.Models.Entities;
 using RawMaterials.Models.IRepository;
-using RawMaterials.Models.Repository;
 using RawMaterials.Repository;
+using RawMaterials.Service;
+using RawMaterials.Service.IService;
 
 namespace RawMaterials
 {
@@ -46,6 +43,18 @@ namespace RawMaterials
                 opts.Password.RequireDigit = true;
             }).AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
 
+            services.AddIdentityCore<Importer>()
+             .AddRoles<IdentityRole>()
+             .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
+
+            services.AddIdentityCore<Suplier>()
+             .AddRoles<IdentityRole>()
+             .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
+
+            services.AddIdentityCore<TeamWork>()
+             .AddRoles<IdentityRole>()
+             .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
+
             services.ConfigureApplicationCookie(options => {
 
                 options.LoginPath = "/Account/Login";
@@ -56,7 +65,17 @@ namespace RawMaterials
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
-             services.AddScoped<IUserRepo, UserRepo>();
+
+            // Business services injection
+            services.AddScoped(typeof(IUserRegistrationService), typeof(UserRegistrationService));
+
+
+            // app initializers
+
+            services.AddAsyncInitializer<RoleInitializers>();
+            services.AddAsyncInitializer<AdminsInitializers>();
+
+
 
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling =
@@ -75,7 +94,7 @@ namespace RawMaterials
                         });
       /*      services.AddAuthentication(x => {
                 x.DefaultAuthenticateScheme = Jwtbearerdefaults});*/
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options => options.Filters.Add(typeof(ExceptionFilter)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

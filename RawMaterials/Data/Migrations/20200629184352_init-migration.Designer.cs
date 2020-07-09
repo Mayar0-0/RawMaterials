@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RawMaterials.Data;
 
 namespace RawMaterials.Data.Migrations
 {
     [DbContext(typeof(RawMaterialsContext))]
-    partial class RawMaterialsContextModelSnapshot : ModelSnapshot
+    [Migration("20200629184352_init-migration")]
+    partial class initmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -591,9 +593,8 @@ namespace RawMaterials.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("varchar(1) CHARACTER SET utf8mb4");
+                    b.Property<bool>("Gender")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastName")
                         .IsRequired()

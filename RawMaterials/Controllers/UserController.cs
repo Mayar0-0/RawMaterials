@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using RawMaterials.Data;
-using RawMaterials.Models.DTO;
-using RawMaterials.Models.Entities;
-using RawMaterials.Models.IRepository;
-using RawMaterials.Models.Repository;
+using RawMaterials.ExceptionsManagement;
+using RawMaterials.Models.Dto.User;
+using RawMaterials.Models.IO.RequestModels.User;
+using RawMaterials.Models.IO.ResponseModels.User;
+using RawMaterials.Service.IService;
+using RawMaterials.Shared.Enumerations;
+using System.Threading.Tasks;
 
 namespace RawMaterials.Controllers
 {
@@ -18,49 +14,42 @@ namespace RawMaterials.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-       
-        
-        public UserController(IUserRepo userRepo, IMapper mapper)
+        private IUserRegistrationService _userRegistrationService;
+
+        static readonly string importerRole = SystemRoles.IMPORTER.ToString();
+
+        public UserController(IMapper mapper, IUserRegistrationService userRegistrationService)
         {
-            _userRepo = userRepo;
-            _mapper = mapper;                              
+            _mapper = mapper;
+            _userRegistrationService = userRegistrationService;
         }
 
-        // GET: api/<UserController>
-        [HttpGet("{id}")]
-        //  [Authorize]
-        public async Task<IActionResult> Get(long id)
+        [HttpPost("")]
+        public async Task<IActionResult> Register([FromForm]UserRegistrationGeneralRequest UserModel)
         {
-            var user = await _userRepo.GetById(id);            
-            if (user == null) { return NotFound(); }
-            else {
-                var userMap = _mapper.Map<UserReadDto>(user);
-                return Ok(user);  
-                 }
+            if (UserModel.UserRole == null)
+                throw new UserRegistrationException("user registration information should have a role", true);
+
+            //validaty
+
+            switch (UserModel.UserRole)
+            {
+                case "IMPORTER":
+                    var importerDto = _mapper.Map<ImporterDto>(UserModel);
+                    return Ok(_mapper.Map<ImporterRegistrationResponse>(await _userRegistrationService.registerImporter(importerDto)));
+
+                case "SUPLIER":
+                    var suplierDto = _mapper.Map<SuplierDto>(UserModel);
+                    return Ok(_mapper.Map<SuplierRegistrationResponse>(await _userRegistrationService.registerSuplier(suplierDto)));
+
+                case "TEAMWORK":
+                    var teamWorkDto = _mapper.Map<TeamWorkDto>(UserModel);
+                    return Ok(_mapper.Map<TeamWorkRegistrationResponse>(await _userRegistrationService.registerTeamWork(teamWorkDto)));
+            }
+            return BadRequest(new { message = "user role should be [ Importer, Suplier, TeamWork ]" });
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] User user)
-        {
-            _userRepo.Add(user);
-          
-        }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-
-        }
-
-        // DELETE api/<UserController>/5
-        //[HttpDelete("{id}")]
-        //public async void Delete()
-        //{            
-        //   //return await Ok(_userRepo.Remove());
-        //}
     }
 }
