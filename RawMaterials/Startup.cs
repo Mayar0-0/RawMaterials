@@ -1,24 +1,11 @@
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RawMaterials.Data;
 using RawMaterials.ExceptionsManagement.ExceptionHandlers;
-using RawMaterials.Initializers.DataInitializers;
-using RawMaterials.Models.Entities;
-using RawMaterials.Models.IRepository;
-using RawMaterials.Repository;
-using RawMaterials.Service.IService.UserServices;
-using RawMaterials.Service.UserServices;
 
 namespace RawMaterials
 {
@@ -38,87 +25,8 @@ namespace RawMaterials
                  options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")
             ));
 
-            services.AddIdentity<User, IdentityRole>(opts =>
-            {
-                opts.Password.RequiredLength = 8;
-                opts.Password.RequireNonAlphanumeric = true;
-                opts.Password.RequireLowercase = false;
-                opts.Password.RequireUppercase = true;
-                opts.Password.RequireDigit = true;
-                opts.User.RequireUniqueEmail = true;
-
-            }).AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
-
-            services.AddIdentityCore<Importer>()
-             .AddRoles<IdentityRole>()
-             .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
-
-            services.AddIdentityCore<Suplier>()
-             .AddRoles<IdentityRole>()
-             .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
-
-            services.AddIdentityCore<TeamWork>()
-             .AddRoles<IdentityRole>()
-             .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
-
-            services.ConfigureApplicationCookie(options => {
-
-                // fixing refirection 404 of loginPath
-                options.Events = new CookieAuthenticationEvents
-                {
-                    OnRedirectToLogin = ctx => {
-                        if (ctx.Request.Path.StartsWithSegments("/api"))
-                        {
-                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                        }
-                        else
-                        {
-                            ctx.Response.Redirect(ctx.RedirectUri);
-                        }
-                        return Task.FromResult(0);
-                    }
-                };
-
-                options.Cookie.Name = "RawMaterials";
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
-                //options.Cookie.ApplicationCookie = 
-            });
-
-
-
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
-
-            // Business services injection
-            services.AddScoped(typeof(IUserRegistrationService), typeof(UserRegistrationService));
-            services.AddScoped(typeof(ILoginService), typeof(LoginService));
-
-
-            // app initializers
-
-            services.AddAsyncInitializer<RoleInitializers>();
-            services.AddAsyncInitializer<AdminsInitializers>();
-
-
-
-            services.AddControllers().AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling =
-                Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-            // Swgger config Url"https://localhost:44369/swagger/Raw_Materials/swagger.json"
-            services.AddSwaggerGen(options => {
-                            options.SwaggerDoc("Raw_Materials",
-                                new Microsoft.OpenApi.Models.OpenApiInfo()
-                                {
-                                    Title = "Raw Materials APi",
-                                    Version = "1",
-
-                                }
-                                    );
-                        });
-      /*      services.AddAuthentication(x => {
-                x.DefaultAuthenticateScheme = Jwtbearerdefaults});*/
+            services.AddServicesDepndency();
+                               
             services.AddControllersWithViews(options => options.Filters.Add(typeof(ExceptionFilter)));
         }
 
