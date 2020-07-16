@@ -10,13 +10,13 @@ namespace RawMaterials.Models.Entities
     {
         public bool PremiumAccount { get; set; }
 
-        public List<InterestMaterial> InterestMaterials { get; set; }
+        public virtual List<InterestMaterial> InterestMaterials { get; set; }
 
-        public List<EndedDeal> EndedDeals { get; set; }
+        public virtual List<EndedDeal> EndedDeals { get; set; }
 
-        public List<ImporterCategory> ImporterCategories { get; set; }
+        public virtual List<ImporterCategory> ImporterCategories { get; set; }
 
-        public List<FeedBack> FeedBacks { get; set; }
+        public virtual List<FeedBack> FeedBacks { get; set; }
 
     }
 }

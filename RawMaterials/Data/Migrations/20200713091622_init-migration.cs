@@ -46,7 +46,7 @@ namespace RawMaterials.Data.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: true),
-                    Gender = table.Column<bool>(nullable: false),
+                    Gender = table.Column<string>(nullable: false),
                     Nationality = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     PremiumAccount = table.Column<bool>(nullable: true),
@@ -61,20 +61,27 @@ namespace RawMaterials.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categorys",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    SuperCategoryId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categorys", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_SuperCategoryId",
+                        column: x => x.SuperCategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Countrys",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
@@ -83,7 +90,7 @@ namespace RawMaterials.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Countrys", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,9 +306,9 @@ namespace RawMaterials.Data.Migrations
                 {
                     table.PrimaryKey("PK_ImporterCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ImporterCategory_Categorys_CategoryId",
+                        name: "FK_ImporterCategory_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categorys",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -313,21 +320,22 @@ namespace RawMaterials.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubCategorys",
+                name: "Materials",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryId = table.Column<long>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubCategorys", x => x.Id);
+                    table.PrimaryKey("PK_Materials", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubCategorys_Categorys_CategoryId",
+                        name: "FK_Materials_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categorys",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -345,9 +353,9 @@ namespace RawMaterials.Data.Migrations
                 {
                     table.PrimaryKey("PK_SuplierCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SuplierCategory_Categorys_CategoryId",
+                        name: "FK_SuplierCategory_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categorys",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -371,9 +379,9 @@ namespace RawMaterials.Data.Migrations
                 {
                     table.PrimaryKey("PK_Province", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Province_Countrys_CountryId",
+                        name: "FK_Province_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Countrys",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -409,47 +417,6 @@ namespace RawMaterials.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Materials",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    SubCategoryId = table.Column<long>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Materials", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Materials_SubCategorys_SubCategoryId",
-                        column: x => x.SubCategoryId,
-                        principalTable: "SubCategorys",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Citys",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    ProvinceId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Citys", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Citys_Province_ProvinceId",
-                        column: x => x.ProvinceId,
-                        principalTable: "Province",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "GlobalPrices",
                 columns: table => new
                 {
@@ -470,6 +437,26 @@ namespace RawMaterials.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Cities",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    ProvinceId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_Province_ProvinceId",
+                        column: x => x.ProvinceId,
+                        principalTable: "Province",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SuplierMaterial",
                 columns: table => new
                 {
@@ -485,9 +472,9 @@ namespace RawMaterials.Data.Migrations
                 {
                     table.PrimaryKey("PK_SuplierMaterial", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SuplierMaterial_Citys_CityId",
+                        name: "FK_SuplierMaterial_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "Citys",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -629,8 +616,19 @@ namespace RawMaterials.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Citys_ProvinceId",
-                table: "Citys",
+                name: "IX_Categories_Name",
+                table: "Categories",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_SuperCategoryId",
+                table: "Categories",
+                column: "SuperCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_ProvinceId",
+                table: "Cities",
                 column: "ProvinceId");
 
             migrationBuilder.CreateIndex(
@@ -679,9 +677,9 @@ namespace RawMaterials.Data.Migrations
                 column: "SuplierMterialId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_SubCategoryId",
+                name: "IX_Materials_CategoryId",
                 table: "Materials",
-                column: "SubCategoryId");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_UserId",
@@ -708,11 +706,6 @@ namespace RawMaterials.Data.Migrations
                 name: "IX_Province_CountryId",
                 table: "Province",
                 column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategorys_CategoryId",
-                table: "SubCategorys",
-                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SuplierCategory_CategoryId",
@@ -797,7 +790,7 @@ namespace RawMaterials.Data.Migrations
                 name: "SuplierMaterial");
 
             migrationBuilder.DropTable(
-                name: "Citys");
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "Materials");
@@ -809,13 +802,10 @@ namespace RawMaterials.Data.Migrations
                 name: "Province");
 
             migrationBuilder.DropTable(
-                name: "SubCategorys");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Countrys");
-
-            migrationBuilder.DropTable(
-                name: "Categorys");
+                name: "Countries");
         }
     }
 }

@@ -10,7 +10,7 @@ namespace RawMaterials.Models.Entities
         public long Id { get; set; }
         public string UserId { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         public float BestDealPeriod { get; set; }
 

@@ -12,7 +12,7 @@ namespace RawMaterials.Models.Entities
 
         public string Name { get; set; }
 
-        public Province Province { get; set; }
+        public virtual Province Province { get; set; }
 
         public long ProvinceId { get; set; }
      

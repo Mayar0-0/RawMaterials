@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RawMaterials.Models.Entities;
+using System.Reflection.Emit;
 
 namespace RawMaterials.Data
 {
@@ -8,9 +9,9 @@ namespace RawMaterials.Data
     {
 
         public DbSet<Advertizment> Advertizments { get; set; }
-        public DbSet<Category> Categorys { get; set; }
-        public DbSet<City> Citys { get; set; }
-        public DbSet<Country> Countrys { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
         public DbSet<EndedDeal> EndedDeals { get; set; }
         public DbSet<FeedBack> FeedBacks { get; set; }
         public DbSet<GlobalPrice> GlobalPrices { get; set; }
@@ -22,7 +23,6 @@ namespace RawMaterials.Data
         public DbSet<PaymentInfo> PaymentInfo { get; set; }
         public DbSet<PriceLog> PriceLog { get; set; }
         public DbSet<Province> Province { get; set; }
-        public DbSet<SubCategory> SubCategorys { get; set; }
         public DbSet<SuplierCategory> SuplierCategory { get; set; }
         public DbSet<SuplierMaterial> SuplierMaterial { get; set; }
         public DbSet<TeamWork> TeamWork { get; set; }
@@ -82,17 +82,17 @@ namespace RawMaterials.Data
             .WithMany(e => e.ImporterCategories)
             .HasForeignKey(p => p.ImporterId);
 
-           modelBuilder.Entity<SubCategory>()
-           .HasOne(e => e.Category)
+           modelBuilder.Entity<Category>()
+           .HasOne(e => e.SuperCategory)
            .WithMany(e => e.SubCategories)
-           .HasForeignKey(p => p.CategoryId);
+           .HasForeignKey(p => p.SuperCategoryId);
 
             // -----------------------------
 
            modelBuilder.Entity<Material>()
-            .HasOne(e => e.SubCategory)
+            .HasOne(e => e.Category)
             .WithMany(e => e.Materials)
-            .HasForeignKey(p => p.SubCategoryId);
+            .HasForeignKey(p => p.CategoryId);
 
             modelBuilder.Entity<GlobalPrice>()
              .HasOne(e => e.Material)
@@ -163,6 +163,14 @@ namespace RawMaterials.Data
             .HasOne(e => e.NotificationSetting)
             .WithOne(e => e.User)
             .HasForeignKey<NotificationSetting>(p => p.UserId);
+
+
+
+
+            // ----------- Attributes properties
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => c.Name)
+                .IsUnique(true);
 
 
         }

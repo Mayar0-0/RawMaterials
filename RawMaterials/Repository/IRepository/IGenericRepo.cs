@@ -12,11 +12,11 @@ namespace RawMaterials.Models.IRepository
         Task<T> GetById(long id);
         Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate);
 
-        Task Add(T entity);
-        Task Update(T entity);
-        Task Remove(T entity);
+        Task<T> Add(T entity);
+        Task<T> Update(T entity);
+        Task<T> Remove(T entity);
 
-        Task<IEnumerable<T>> GetAll();
+        IQueryable<T> GetAll();
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
 
         Task<int> CountAll();

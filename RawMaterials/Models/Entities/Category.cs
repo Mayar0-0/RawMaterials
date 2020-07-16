@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RawMaterials.Models.Entities
 {
@@ -11,7 +8,14 @@ namespace RawMaterials.Models.Entities
 
         public string Name { get; set; }
 
-        public List<SubCategory> SubCategories { get; set; }
+        public virtual Category SuperCategory { get; set; }
+
+        public long? SuperCategoryId { get; set; }
+
+        public virtual List<Category> SubCategories { get; set; }
+
+        public virtual List<Material> Materials { get; set; }
+
 
     }
 }

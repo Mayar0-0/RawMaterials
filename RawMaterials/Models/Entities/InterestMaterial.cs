@@ -9,11 +9,11 @@ namespace RawMaterials.Models.Entities
     {
         public long Id { get; set; }
 
-        public SuplierMaterial SuplierMterial { get; set; }
+        public virtual SuplierMaterial SuplierMterial { get; set; }
 
         public long SuplierMterialId { get; set; }
 
-        public Importer Importer { get; set; }
+        public virtual Importer Importer { get; set; }
 
         public string ImporterId { get; set; }
     }

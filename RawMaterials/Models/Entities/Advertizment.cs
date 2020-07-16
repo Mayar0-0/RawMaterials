@@ -9,11 +9,11 @@ namespace RawMaterials.Models.Entities
     {
         public long Id { get; set; }
 
-        public TeamWork TeamWork { get; set; }
+        public virtual TeamWork TeamWork { get; set; }
 
         public string TeamWorkId { get; set; }
 
-        public PaymentInfo PaymentInfo { get; set; }
+        public virtual PaymentInfo PaymentInfo { get; set; }
 
         public long PaymentInfoId { get; set; }
 

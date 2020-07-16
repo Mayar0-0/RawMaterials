@@ -9,11 +9,11 @@ namespace RawMaterials.Models.Entities
     {
         public long Id { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public long CategoryId { get; set; }
 
-        public Suplier Suplier { get; set; }
+        public virtual Suplier Suplier { get; set; }
 
         public string SuplierId { get; set; }
     }

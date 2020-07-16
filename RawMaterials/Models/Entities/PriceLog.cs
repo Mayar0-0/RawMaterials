@@ -10,7 +10,7 @@ namespace RawMaterials.Models.Entities
     {
         public long Id { get; set; }
 
-        public SuplierMaterial SuplierMaterial { get; set; }
+        public virtual SuplierMaterial SuplierMaterial { get; set; }
 
         public long SuplierMaterialId { get; set; }
 

@@ -9,7 +9,7 @@ namespace RawMaterials.Models.Entities
     {
         public long Id { get; set; }
 
-        public Material Material { get; set; }
+        public virtual Material Material { get; set; }
 
         public long MaterialId { get; set; }
 

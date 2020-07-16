@@ -17,11 +17,11 @@ namespace RawMaterials.Models.Entities
         [Required]
         public string CommericialRecord { get; set; }
 
-        public List<SuplierCategory> SuplierCategories { get; set; }
+        public virtual List<SuplierCategory> SuplierCategories { get; set; }
 
-        public List<FeedBack> FeedBacks { get; set; }
+        public virtual List<FeedBack> FeedBacks { get; set; }
 
-        public List<SuplierMaterial> SuplierMaterials { get; set; }
+        public virtual List<SuplierMaterial> SuplierMaterials { get; set; }
 
 
 

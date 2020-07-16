@@ -22,7 +22,10 @@ namespace RawMaterials
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<RawMaterialsContext>(
-                 options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection")
+                 options => options
+                 .UseLazyLoadingProxies()
+                 .UseMySql(Configuration.GetConnectionString("DefaultConnection")
+
             ));
 
             services.AddServicesDepndency();

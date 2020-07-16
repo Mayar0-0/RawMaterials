@@ -7,6 +7,9 @@ using RawMaterials.Initializers.DataInitializers;
 using RawMaterials.Models.Entities;
 using RawMaterials.Models.IRepository;
 using RawMaterials.Repository;
+using RawMaterials.Repository.IRepository;
+using RawMaterials.Service;
+using RawMaterials.Service.IService;
 using RawMaterials.Service.IService.UserServices;
 using RawMaterials.Service.UserServices;
 using System;
@@ -45,10 +48,22 @@ namespace RawMaterials
 
             services.ConfigureApplicationCookie(options => {
 
-                // fixing refirection 404 of loginPath
+                // fixing redirection 404 of loginPath
                 options.Events = new CookieAuthenticationEvents
                 {
                     OnRedirectToLogin = ctx => {
+                        if (ctx.Request.Path.StartsWithSegments("/api"))
+                        {
+                            ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                        return Task.FromResult(0);
+                    },
+
+                    OnRedirectToAccessDenied = ctx => {
                         if (ctx.Request.Path.StartsWithSegments("/api"))
                         {
                             ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -69,11 +84,21 @@ namespace RawMaterials
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+
+            // repositories
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+            services.AddScoped(typeof(ICategoryRepo), typeof(CategoryRepo));
+            services.AddScoped(typeof(IMaterialRepo), typeof(MaterialRepo));
+
+
 
             // Business services injection
             services.AddScoped(typeof(IUserRegistrationService), typeof(UserRegistrationService));
             services.AddScoped(typeof(ILoginService), typeof(LoginService));
+            services.AddScoped(typeof(ICategoryService), typeof(CategoryService));
+            services.AddScoped(typeof(IMaterialService), typeof(MaterialService));
+
+
 
 
             // app initializers

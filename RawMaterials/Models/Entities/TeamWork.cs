@@ -9,7 +9,7 @@ namespace RawMaterials.Models.Entities
     {
         public string Field_Name { get; set; }
 
-        public List<Advertizment> Advertizments { get; set; }
+        public virtual List<Advertizment> Advertizments { get; set; }
 
     }
 }

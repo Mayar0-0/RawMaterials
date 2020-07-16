@@ -9,15 +9,15 @@ namespace RawMaterials.Models.Entities
     public class SuplierMaterial
     {
         public long Id { get; set; }
-        public Material Material { get; set; }
+        public virtual Material Material { get; set; }
 
         public long MaterialId { get; set; }
 
-        public Suplier Suplier { get; set; }
+        public virtual Suplier Suplier { get; set; }
 
         public string SuplierId { get; set; }
 
-        public City City { get; set; }
+        public virtual City City { get; set; }
 
         public long CityId { get; set; }
 
@@ -25,7 +25,7 @@ namespace RawMaterials.Models.Entities
 
         public long Quantitiy { get; set; }
 
-        public List<EndedDeal> EndedDeals { get; set; }
+        public virtual List<EndedDeal> EndedDeals { get; set; }
 
         // public long Tax { get; set; }
 

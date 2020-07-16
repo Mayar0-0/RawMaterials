@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RawMaterials.Shared.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace RawMaterials.Controllers
     [ApiController]
     public class HomeController : Controller
     {
-        [Authorize]
+        [Authorize(Roles = "SUPLIER")]
         [HttpGet("")]
         public IActionResult Index()
         {

@@ -11,6 +11,6 @@ namespace RawMaterials.Models.Entities
 
         public string Name { get; set; }
 
-        public List<Province> Provinces { get; set; }
+        public virtual List<Province> Provinces { get; set; }
     }
 }

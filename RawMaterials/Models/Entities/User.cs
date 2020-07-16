@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RawMaterials.Shared.Enumerations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RawMaterials.Models.Entities
 {
@@ -31,11 +27,11 @@ namespace RawMaterials.Models.Entities
 
         public string Nationality { get; set; }
 
-        public NotificationSetting NotificationSetting { get; set; }
+        public virtual NotificationSetting NotificationSetting { get; set; }
 
-        public List<PaymentInfo> PaymentInfos { get; set; }
+        public virtual List<PaymentInfo> PaymentInfos { get; set; }
 
-        public List<Notification> Notifications { get; set; }
+        public virtual List<Notification> Notifications { get; set; }
 
     }
 }

@@ -9,8 +9,8 @@ using RawMaterials.Data;
 namespace RawMaterials.Data.Migrations
 {
     [DbContext(typeof(RawMaterialsContext))]
-    [Migration("20200708161026_Gender-with-char")]
-    partial class Genderwithchar
+    [Migration("20200714153352_nullable-supercategory-forignkey")]
+    partial class nullablesupercategoryforignkey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -188,11 +188,19 @@ namespace RawMaterials.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.Property<long?>("SuperCategoryId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorys");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("SuperCategoryId");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.City", b =>
@@ -211,7 +219,7 @@ namespace RawMaterials.Data.Migrations
 
                     b.HasIndex("ProvinceId");
 
-                    b.ToTable("Citys");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.Country", b =>
@@ -225,7 +233,7 @@ namespace RawMaterials.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countrys");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.EndedDeal", b =>
@@ -352,18 +360,18 @@ namespace RawMaterials.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<long>("SubCategoryId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SubCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Materials");
                 });
@@ -483,25 +491,6 @@ namespace RawMaterials.Data.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Province");
-                });
-
-            modelBuilder.Entity("RawMaterials.Models.Entities.SubCategory", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubCategorys");
                 });
 
             modelBuilder.Entity("RawMaterials.Models.Entities.SuplierCategory", b =>
@@ -753,6 +742,13 @@ namespace RawMaterials.Data.Migrations
                         .HasForeignKey("TeamWorkId");
                 });
 
+            modelBuilder.Entity("RawMaterials.Models.Entities.Category", b =>
+                {
+                    b.HasOne("RawMaterials.Models.Entities.Category", "SuperCategory")
+                        .WithMany("SubCategories")
+                        .HasForeignKey("SuperCategoryId");
+                });
+
             modelBuilder.Entity("RawMaterials.Models.Entities.City", b =>
                 {
                     b.HasOne("RawMaterials.Models.Entities.Province", "Province")
@@ -823,9 +819,9 @@ namespace RawMaterials.Data.Migrations
 
             modelBuilder.Entity("RawMaterials.Models.Entities.Material", b =>
                 {
-                    b.HasOne("RawMaterials.Models.Entities.SubCategory", "SubCategory")
+                    b.HasOne("RawMaterials.Models.Entities.Category", "Category")
                         .WithMany("Materials")
-                        .HasForeignKey("SubCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -865,15 +861,6 @@ namespace RawMaterials.Data.Migrations
                     b.HasOne("RawMaterials.Models.Entities.Country", "Country")
                         .WithMany("Provinces")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RawMaterials.Models.Entities.SubCategory", b =>
-                {
-                    b.HasOne("RawMaterials.Models.Entities.Category", "Category")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
