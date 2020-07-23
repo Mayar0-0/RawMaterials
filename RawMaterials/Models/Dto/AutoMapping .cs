@@ -69,6 +69,16 @@ namespace RawMaterials.Dto
             CreateMap<MaterialDto, Material>().ReverseMap();
             CreateMap<MaterialRequestModel, MaterialDto>();
 
+            //Manage SuplierCategory
+            CreateMap<SuplierCategory, SuplierCategoryDto>().ReverseMap();
+            CreateMap<SuplierCategoryRequsetModel, SuplierCategoryDto>();
+            CreateMap<SuplierCategoryDto, SuplierCategoryResponseModel>();
+
+            //Manage ImporterCategory
+            CreateMap<ImporterCategory, ImporterCategoryDto>().ReverseMap();
+            CreateMap<ImporterCategoryRequestModel, ImporterCategoryDto>();
+            CreateMap<ImporterCategoryDto, ImporterCategoryResponseModel>();
+
         }
     }
 }

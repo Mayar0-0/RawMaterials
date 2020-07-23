@@ -6,11 +6,12 @@ using RawMaterials.Models.Entities;
 using RawMaterials.Repository.IRepository;
 using RawMaterials.Service.IService;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RawMaterials.Service
 {
-    public class MaterialService : CrudService<MaterialDto, IMaterialRepo, Material, MaterialNotExistedException>,  IMaterialService
+    public class MaterialService : CrudService<MaterialDto, IMaterialRepo, Material, MaterialNotExistedException>, IMaterialService
     {
         public MaterialService(IMaterialRepo materialRepo, IMapper mapper) : base(materialRepo, mapper) { }
 
@@ -29,6 +30,11 @@ namespace RawMaterials.Service
         internal override Task CheckDeleteRules(int id)
         {
             return Task.CompletedTask;
+        }
+
+        internal override Expression<Func<Material, bool>> CheckGetRules()
+        {
+            return null;
         }
 
         internal override async Task CheckUpdateRules(int id, MaterialDto materialDto)

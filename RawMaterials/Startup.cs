@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,9 @@ namespace RawMaterials
             ));
 
             services.AddServicesDepndency();
-                               
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
             services.AddControllersWithViews(options => options.Filters.Add(typeof(ExceptionFilter)));
         }
 

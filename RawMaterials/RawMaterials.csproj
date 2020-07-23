@@ -14,7 +14,9 @@
   <ItemGroup>
     <Compile Include="Models\Dto\AutoMapping .cs" />
     <Compile Include="Models\Dto\CategoryDto.cs" />
+    <Compile Include="Models\Dto\ImporterCategoryDto.cs" />
     <Compile Include="Models\Dto\MaterialDto.cs" />
+    <Compile Include="Models\Dto\SuplierCategoryDto.cs" />
     <Compile Include="Models\Dto\User\GeneralUserDto.cs" />
     <Compile Include="Models\Dto\User\ImporterDto.cs" />
     <Compile Include="Models\Dto\User\LoginDto.cs" />
@@ -26,6 +28,7 @@
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Extensions.Hosting.AsyncInitialization" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />

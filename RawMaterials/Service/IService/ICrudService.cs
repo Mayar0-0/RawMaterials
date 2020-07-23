@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RawMaterials.Service.IService
@@ -13,5 +14,7 @@ namespace RawMaterials.Service.IService
         Task<ModelDto> Create(ModelDto modelDto);
         Task<ModelDto> Update(int id, ModelDto modelDto);
         Task<ModelDto> Delete(int id);
+        Task<IEnumerable<ModelDto>> GetWhere(Expression<Func<ModelDto, bool>> predicate);
+
     }
 }

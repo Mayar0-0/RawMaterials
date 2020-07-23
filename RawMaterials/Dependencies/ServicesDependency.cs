@@ -46,12 +46,14 @@ namespace RawMaterials
              .AddRoles<IdentityRole>()
              .AddEntityFrameworkStores<RawMaterialsContext>().AddDefaultTokenProviders();
 
-            services.ConfigureApplicationCookie(options => {
+            services.ConfigureApplicationCookie(options =>
+            {
 
                 // fixing redirection 404 of loginPath
                 options.Events = new CookieAuthenticationEvents
                 {
-                    OnRedirectToLogin = ctx => {
+                    OnRedirectToLogin = ctx =>
+                    {
                         if (ctx.Request.Path.StartsWithSegments("/api"))
                         {
                             ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -63,7 +65,8 @@ namespace RawMaterials
                         return Task.FromResult(0);
                     },
 
-                    OnRedirectToAccessDenied = ctx => {
+                    OnRedirectToAccessDenied = ctx =>
+                    {
                         if (ctx.Request.Path.StartsWithSegments("/api"))
                         {
                             ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
@@ -89,6 +92,8 @@ namespace RawMaterials
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(ICategoryRepo), typeof(CategoryRepo));
             services.AddScoped(typeof(IMaterialRepo), typeof(MaterialRepo));
+            services.AddScoped(typeof(ISuplierCategoryRepo), typeof(SuplierCategoryRepo));
+            services.AddScoped(typeof(IImporterCategoryRepo), typeof(ImporterCategoryRepo));
 
 
 
@@ -97,6 +102,8 @@ namespace RawMaterials
             services.AddScoped(typeof(ILoginService), typeof(LoginService));
             services.AddScoped(typeof(ICategoryService), typeof(CategoryService));
             services.AddScoped(typeof(IMaterialService), typeof(MaterialService));
+            services.AddScoped(typeof(ISuplierCategoryService), typeof(SuplierCategoryService));
+            services.AddScoped(typeof(IImporterCategoryService), typeof(ImporterCategoryService));
 
 
 
@@ -110,7 +117,8 @@ namespace RawMaterials
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // Swgger config Url"https://localhost:44369/swagger/Raw_Materials/swagger.json"
-            services.AddSwaggerGen(options => {
+            services.AddSwaggerGen(options =>
+            {
                 options.SwaggerDoc("Raw_Materials",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {

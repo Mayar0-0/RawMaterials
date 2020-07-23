@@ -5,6 +5,8 @@ using RawMaterials.Models.Dto;
 using RawMaterials.Models.Entities;
 using RawMaterials.Repository.IRepository;
 using RawMaterials.Service.IService;
+using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RawMaterials.Service
@@ -44,6 +46,11 @@ namespace RawMaterials.Service
         {
             modelDto.Id = id;
             return modelDto;
+        }
+
+        internal override Expression<Func<Category, bool>> CheckGetRules()
+        {
+            return null;
         }
     }
 }
