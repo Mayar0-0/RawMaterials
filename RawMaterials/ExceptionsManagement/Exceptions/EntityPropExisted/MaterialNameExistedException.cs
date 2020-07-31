@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RawMaterials.ExceptionsManagement.Exceptions.EntityPropExisted
+﻿namespace RawMaterials.ExceptionsManagement.Exceptions.EntityPropExisted
 {
-    public class MaterialNameExistedException: EntityPropExistedException
+    public class MaterialNameExistedException : EntityPropExistedException
     {
         public MaterialNameExistedException(string value) : base("material", "name", value) { }
     }

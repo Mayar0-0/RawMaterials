@@ -11,6 +11,7 @@ using RawMaterials.Models.IO.ResponseModels.User;
 using RawMaterials.Repository.PagingAndSorting;
 using RawMaterials.Shared.Enumerations;
 using RawMaterials.Shared.StaticValues;
+using System.Linq;
 
 namespace RawMaterials.Dto
 {
@@ -70,12 +71,18 @@ namespace RawMaterials.Dto
             CreateMap<MaterialRequestModel, MaterialDto>();
 
             //Manage SuplierCategory
-            CreateMap<SuplierCategory, SuplierCategoryDto>().ReverseMap();
+            CreateMap<SuplierCategoryDto, SuplierCategory>()
+                    .ForSourceMember(r=> r.IsDestroyed, o=> o.DoNotValidate()).ReverseMap();
             CreateMap<SuplierCategoryRequsetModel, SuplierCategoryDto>();
             CreateMap<SuplierCategoryDto, SuplierCategoryResponseModel>();
+            CreateMap<SuplierCategoryDto[], SuplierCategoryResponseModel[]>();
+            //.ForSourceMember(r=> r.GetEnumerator(), o=> o.DoNotValidate());
+            CreateMap<SuplierCategory[], SuplierCategoryDto[]>().ReverseMap();
+               // .ForSourceMember(r => r.GetEnumerator(), o => o.DoNotValidate());
 
             //Manage ImporterCategory
-            CreateMap<ImporterCategory, ImporterCategoryDto>().ReverseMap();
+            CreateMap<ImporterCategoryDto, ImporterCategory>().
+                ForSourceMember(r => r.IsDestroyed, o => o.DoNotValidate()).ReverseMap(); 
             CreateMap<ImporterCategoryRequestModel, ImporterCategoryDto>();
             CreateMap<ImporterCategoryDto, ImporterCategoryResponseModel>();
 

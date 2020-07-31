@@ -1,5 +1,3 @@
-using System;
-
 namespace RawMaterials.Models
 {
     public class ErrorViewModel

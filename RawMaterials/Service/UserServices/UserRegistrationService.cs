@@ -20,7 +20,7 @@ namespace RawMaterials.Service.UserServices
 
 
 
-        public UserRegistrationService(IMapper mapper,UserManager<User> userManager, UserManager<Importer> importerManager, UserManager<Suplier> suplierManager, UserManager<TeamWork> teamWorkManager)
+        public UserRegistrationService(IMapper mapper, UserManager<User> userManager, UserManager<Importer> importerManager, UserManager<Suplier> suplierManager, UserManager<TeamWork> teamWorkManager)
         {
             _mapper = mapper;
             _importerManager = importerManager;

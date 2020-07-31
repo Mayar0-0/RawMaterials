@@ -25,7 +25,7 @@ namespace RawMaterials.Initializers.DataInitializers
                 SystemRoles.SUPERADMIN.ToString()
             };
             var x = await _roleManager.FindByNameAsync(roles[0]);
-            if  (x != null)
+            if (x != null)
                 return;
 
             foreach (string role in roles)

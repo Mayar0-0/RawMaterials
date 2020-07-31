@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using RawMaterials.Data;
+
 
 using RawMaterials.Models.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RawMaterials.Repository
@@ -28,7 +29,7 @@ namespace RawMaterials.Repository
         public async Task<T> Add(T entity)
         {
             // await Context.AddAsync(entity);
-            await Context.Set<T>().AddAsync(entity);
+            await Context.Set<T>().AddAsync(entity);            
 
             await Context.SaveChangesAsync();
             return entity;
@@ -36,7 +37,7 @@ namespace RawMaterials.Repository
 
         public async Task<T> Update(T entity)
         {
-            Context.Entry(entity).State = EntityState.Modified;
+            Context.Entry(entity).State = EntityState.Modified;       
             await Context.SaveChangesAsync();
             return entity;
         }
@@ -69,6 +70,12 @@ namespace RawMaterials.Repository
             if (entity != null)
                 Context.Entry(entity).State = EntityState.Detached;
             return entity;
+        }
+
+       public async  Task<bool> IsExisted(long id)
+        {
+            var entity = await Context.Set<T>().FindAsync(id);
+            return entity != null;
         }
 
     }

@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using AutoMapper.Internal;
 using RawMaterials.ExceptionsManagement.Exceptions.EntityNotExisted;
-using RawMaterials.Helper;
 using RawMaterials.Repository.PagingAndSorting;
 using RawMaterials.Service.IService;
-using RawMaterials.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,8 +129,7 @@ namespace RawMaterials.Service
         internal abstract Task CheckDeleteRules(int id);
 
         public Task<IEnumerable<ModelDto>> GetWhere(Expression<Func<ModelDto, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
+            => throw new NotImplementedException();
+        
     }
 }

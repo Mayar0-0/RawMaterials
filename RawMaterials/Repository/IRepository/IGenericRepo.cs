@@ -1,5 +1,4 @@
-﻿using RawMaterials.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RawMaterials.Models.IRepository
 {
-    public interface  IGenericRepo<T> where T : class
+    public interface IGenericRepo<T> where T : class
     {
         Task<T> GetById(long id);
         Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate);
@@ -20,6 +19,7 @@ namespace RawMaterials.Models.IRepository
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
 
         Task<int> CountAll();
+        Task<bool> IsExisted(long id);
         Task<int> CountWhere(Expression<Func<T, bool>> predicate);
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RawMaterials.Models.Entities
+﻿namespace RawMaterials.Models.Entities
 {
     public class ImporterCategory
     {
@@ -17,7 +12,7 @@ namespace RawMaterials.Models.Entities
 
         public string ImporterId { get; set; }
 
-       
+
 
     }
 }

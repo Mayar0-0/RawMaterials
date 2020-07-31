@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RawMaterials.Repository
 {
-    public class CategoryRepo: PagingAndSorting<Category>, ICategoryRepo
+    public class CategoryRepo : PagingAndSorting<Category>, ICategoryRepo
     {
         public CategoryRepo(RawMaterialsContext ctx) : base(ctx) { }
 

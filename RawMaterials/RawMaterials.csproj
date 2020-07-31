@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\TeamWork\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

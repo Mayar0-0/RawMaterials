@@ -50,8 +50,9 @@ namespace RawMaterials
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-               app.UseSwagger();
-            app.UseSwaggerUI(Options => {
+            app.UseSwagger();
+            app.UseSwaggerUI(Options =>
+            {
                 Options.SwaggerEndpoint("/swagger/Raw_Materials/swagger.json", "Raw Material");
                 Options.RoutePrefix = "";
             });

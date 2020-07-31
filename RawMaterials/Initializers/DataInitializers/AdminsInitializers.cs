@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using RawMaterials.ExceptionsManagement;
 using RawMaterials.Models.Entities;
-using RawMaterials.Shared.Enumerations;
 using System;
 using System.Threading.Tasks;
 
@@ -21,16 +20,16 @@ namespace RawMaterials.Initializers.DataInitializers
                 return;
 
 
-                User superAdmin = new User()
-                {
-                    Active = true,
-                    UserName = "superadmin",
-                    Email = "superadmin@gmail.com",
-                    BirthDate = new DateTime(2000, 1, 1),
-                    FirstName = "superadmin",
-                    LastName = "superadmin",
-                    Gender = 'M'
-                };
+            User superAdmin = new User()
+            {
+                Active = true,
+                UserName = "superadmin",
+                Email = "superadmin@gmail.com",
+                BirthDate = new DateTime(2000, 1, 1),
+                FirstName = "superadmin",
+                LastName = "superadmin",
+                Gender = 'M'
+            };
 
             IdentityResult result = await _userManager.CreateAsync(superAdmin, "P@$$w0rd");
 

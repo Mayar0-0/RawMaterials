@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RawMaterials.Models.IO.RequestModels
 {
     public class ImporterCategoryRequestModel
     {
+        public long Id { get; set; } = 0;
 
         [Required]
         public long CategoryId { get; set; }
+
+        [Required]
+        public bool IsDestroyed { get; set; }
     }
 }
