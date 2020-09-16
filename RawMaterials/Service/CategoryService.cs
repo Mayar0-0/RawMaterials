@@ -13,7 +13,7 @@ namespace RawMaterials.Service
 {
     public class CategoryService : CrudService<CategoryDto, ICategoryRepo, Category, CategoryNotExistedException>, ICategoryService
     {
-        public CategoryService(ICategoryRepo categoryRepo, IMapper mapper) : base(categoryRepo, mapper){ }
+        public CategoryService(ICategoryRepo categoryRepo, IMapper mapper) : base(categoryRepo, mapper) { }
 
         internal override async Task CheckCreateRules(CategoryDto categoryDto)
         {

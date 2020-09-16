@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RawMaterials.Models.Entities;
-using System.Reflection.Emit;
 
 namespace RawMaterials.Data
 {
@@ -82,17 +81,17 @@ namespace RawMaterials.Data
             .WithMany(e => e.ImporterCategories)
             .HasForeignKey(p => p.ImporterId);
 
-           modelBuilder.Entity<Category>()
-           .HasOne(e => e.SuperCategory)
-           .WithMany(e => e.SubCategories)
-           .HasForeignKey(p => p.SuperCategoryId);
+            modelBuilder.Entity<Category>()
+            .HasOne(e => e.SuperCategory)
+            .WithMany(e => e.SubCategories)
+            .HasForeignKey(p => p.SuperCategoryId);
 
             // -----------------------------
 
-           modelBuilder.Entity<Material>()
-            .HasOne(e => e.Category)
-            .WithMany(e => e.Materials)
-            .HasForeignKey(p => p.CategoryId);
+            modelBuilder.Entity<Material>()
+             .HasOne(e => e.Category)
+             .WithMany(e => e.Materials)
+             .HasForeignKey(p => p.CategoryId);
 
             modelBuilder.Entity<GlobalPrice>()
              .HasOne(e => e.Material)

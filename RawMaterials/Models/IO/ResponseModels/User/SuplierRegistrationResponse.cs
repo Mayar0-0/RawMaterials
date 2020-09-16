@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RawMaterials.Models.IO.ResponseModels.User
+﻿namespace RawMaterials.Models.IO.ResponseModels.User
 {
-    public class SuplierRegistrationResponse: UserRegistrationGeneralResponse
+    public class SuplierRegistrationResponse : UserRegistrationGeneralResponse
     {
         public string CommericialRecord { get; set; }
     }

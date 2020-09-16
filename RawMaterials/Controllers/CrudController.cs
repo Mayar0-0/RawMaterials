@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace RawMaterials.Controllers
 {
     public class CrudController<ResponseModel, ModelDto, IBusinessService, RequestModel> : ControllerBase
-        where IBusinessService: ICrudService<ModelDto>
+        where IBusinessService : ICrudService<ModelDto>
         where ModelDto : class
     {
 

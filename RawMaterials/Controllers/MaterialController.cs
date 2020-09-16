@@ -11,7 +11,7 @@ namespace RawMaterials.Controllers
     [ApiController]
     public class MaterialController : CrudController<MaterialResponseModel, MaterialDto, IMaterialService, MaterialRequestModel>
     {
-        public MaterialController(IMaterialService _materialService, IMapper mapper) :base(_materialService, mapper) { }
-       
+        public MaterialController(IMaterialService _materialService, IMapper mapper) : base(_materialService, mapper) { }
+
     }
 }

@@ -4,9 +4,6 @@ using RawMaterials.Models.Dto.User;
 using RawMaterials.Models.Entities;
 using RawMaterials.Models.IO.ResponseModels.User;
 using RawMaterials.Service.IService.UserServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RawMaterials.Service.UserServices

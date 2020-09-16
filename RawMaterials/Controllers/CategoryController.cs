@@ -11,7 +11,7 @@ namespace RawMaterials.Controllers
     [ApiController]
     public class CategoryController : CrudController<CategoryResponseModel, CategoryDto, ICategoryService, CategoryRequestModel>
     {
-        public CategoryController(ICategoryService categoryService, IMapper mapper) :base(categoryService, mapper)
+        public CategoryController(ICategoryService categoryService, IMapper mapper) : base(categoryService, mapper)
         {
         }
     }

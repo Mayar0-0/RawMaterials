@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace RawMaterials.Repository.PagingAndSorting
+﻿namespace RawMaterials.Repository.PagingAndSorting
 {
     public class PageAble
     {

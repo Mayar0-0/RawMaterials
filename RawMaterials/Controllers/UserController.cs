@@ -28,7 +28,7 @@ namespace RawMaterials.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Register([FromForm]UserRegistrationGeneralRequest UserModel)
+        public async Task<IActionResult> Register([FromForm] UserRegistrationGeneralRequest UserModel)
         {
             if (UserModel.UserRole == null)
                 throw new UserRegistrationException("user registration information should have a role", true);
@@ -53,10 +53,10 @@ namespace RawMaterials.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromForm]LoginRequestModel loginRequestModel)
+        public async Task<IActionResult> Login([FromForm] LoginRequestModel loginRequestModel)
         {
             var loginDto = _mapper.Map<LoginDto>(loginRequestModel);
-            var loginResponseModel = await  _loginService.Login(loginDto);
+            var loginResponseModel = await _loginService.Login(loginDto);
 
 
             if (loginResponseModel.Succeed)
