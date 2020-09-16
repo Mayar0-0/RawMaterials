@@ -14,8 +14,8 @@ namespace RawMaterials.Controllers
         where ModelDto : class
     {
 
-        private readonly IBusinessService _businessService;
-        private readonly IMapper _mapper;
+        protected readonly IBusinessService _businessService;
+        protected readonly IMapper _mapper;
 
         public CrudController(IBusinessService businessService, IMapper mapper)
         {

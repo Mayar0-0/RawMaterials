@@ -94,6 +94,11 @@ namespace RawMaterials
             services.AddScoped(typeof(IMaterialRepo), typeof(MaterialRepo));
             services.AddScoped(typeof(ISuplierCategoryRepo), typeof(SuplierCategoryRepo));
             services.AddScoped(typeof(IImporterCategoryRepo), typeof(ImporterCategoryRepo));
+            services.AddScoped(typeof(ISuplierCategoryRepo), typeof(SuplierCategoryRepo));
+            services.AddScoped(typeof(ISuplierMaterialRepo), typeof(SuplierMaterialRepo));
+            services.AddScoped(typeof(IFeedBackRepo), typeof(FeedBackRepo));
+
+
 
 
 
@@ -104,6 +109,9 @@ namespace RawMaterials
             services.AddScoped(typeof(IMaterialService), typeof(MaterialService));
             services.AddScoped(typeof(ISuplierCategoryService), typeof(SuplierCategoryService));
             services.AddScoped(typeof(IImporterCategoryService), typeof(ImporterCategoryService));
+            services.AddScoped(typeof(ISuplierCategoryService), typeof(SuplierCategoryService));
+            services.AddScoped(typeof(ISuplierMaterialService), typeof(SuplierMaterialService));
+            services.AddScoped(typeof(IFeedBackService), typeof(FeedBackService));
 
 
 

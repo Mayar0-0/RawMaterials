@@ -1,5 +1,6 @@
 ﻿
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using RawMaterials.Models.Dto;
 using RawMaterials.Models.Dto.User;
 using RawMaterials.Models.Entities;
@@ -19,6 +20,7 @@ namespace RawMaterials.Dto
 
         public AutoMapping()
         {
+
             // Request Params
             CreateMap<PaginationParams, PageAble>();
 
@@ -78,6 +80,22 @@ namespace RawMaterials.Dto
             CreateMap<ImporterCategory, ImporterCategoryDto>().ReverseMap();
             CreateMap<ImporterCategoryRequestModel, ImporterCategoryDto>();
             CreateMap<ImporterCategoryDto, ImporterCategoryResponseModel>();
+
+            //Manage SuplierMaterial
+            CreateMap<SuplierMaterialDto, SuplierMaterial>();
+            CreateMap<SuplierMaterial, SuplierMaterialDto>()
+                .ForMember(suplierMaterialDto => suplierMaterialDto.MaterialName,
+                suplierMaterialDto => suplierMaterialDto.MapFrom(suplierMaterial => suplierMaterial.Material.Name))
+
+                .ForMember(suplierMaterialDto => suplierMaterialDto.CityName,
+                suplierMaterialDto => suplierMaterialDto.MapFrom(suplierMaterial => suplierMaterial.City.Name));
+            CreateMap<SuplierMaterialRequestModel, SuplierMaterialDto>();
+            CreateMap<SuplierMaterialDto, SuplierMaterialResponseModel>();
+
+            // Manage FeedBack usecase
+            CreateMap<FeedBackDto, FeedBackResponseModel>();
+            CreateMap<FeedBackDto, FeedBack>().ReverseMap();
+            CreateMap<FeedBackRequestModel, FeedBackDto>();
 
         }
     }

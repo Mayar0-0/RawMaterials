@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <Compile Include="Models\Dto\AutoMapping .cs" />
+    <Compile Include="Models\Dto\FeedBackDto.cs" />
+    <Compile Include="Models\Dto\SuplierMaterialDto.cs" />
     <Compile Include="Models\Dto\CategoryDto.cs" />
     <Compile Include="Models\Dto\ImporterCategoryDto.cs" />
     <Compile Include="Models\Dto\MaterialDto.cs" />
