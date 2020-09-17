@@ -84,6 +84,8 @@ namespace RawMaterials
                 //options.Cookie.ApplicationCookie = 
             });
 
+        
+
             //AutoMapper
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -120,6 +122,16 @@ namespace RawMaterials
             services.AddAsyncInitializer<RoleInitializers>();
             services.AddAsyncInitializer<AdminsInitializers>();
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                    });
+            });
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling =
                 Newtonsoft.Json.ReferenceLoopHandling.Ignore);

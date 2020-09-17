@@ -39,6 +39,7 @@ namespace RawMaterials
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -57,9 +58,12 @@ namespace RawMaterials
                 Options.RoutePrefix = "";
             });
 
+
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
